@@ -26,8 +26,8 @@ function App() {
       <header className="site-header">
         <nav>
           <ul>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="https://github.com/your-repo-link" target="_blank" rel="noopener noreferrer">Repo Link</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="https://github.com/mr-bansal/MyDataTalk/" target="_blank" rel="noopener noreferrer">Repo Link</a></li>
           </ul>
         </nav>
       </header>
