@@ -1,20 +1,23 @@
 {
-  "name": "gemini-backend",
+  "name": "server",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node src/index.js"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "axios": "^1.7.2",
-    "body-parser": "^1.20.2",
+    "@google/genai": "^0.8.0",
+    "@google/generative-ai": "^0.24.0",
+    "body-parser": "^2.2.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "pg": "^8.12.0"
+    "dotenv": "^16.5.0",
+    "exceljs": "^4.4.0",
+    "express": "^5.1.0",
+    "json2csv": "^6.0.0-alpha.2",
+    "pg": "^8.14.1"
   }
 }
