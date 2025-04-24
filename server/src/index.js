@@ -1,5 +1,4 @@
 import 'dotenv/config';
-import 'express/lib/router.js';
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
