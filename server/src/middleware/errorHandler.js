@@ -1,4 +1,4 @@
-const errorHandler = (err, req, res, next) => {
+export default function errorHandler(err, req, res, next) {
     console.error('Error:', err);
 
     // Determine status code
@@ -8,7 +8,7 @@ const errorHandler = (err, req, res, next) => {
     const errorResponse = {
         error: true,
         message: err.message || 'An unexpected error occurred',
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
     };
 
     // Add stack trace in development mode
@@ -18,6 +18,4 @@ const errorHandler = (err, req, res, next) => {
 
     // Send response
     res.status(statusCode).json(errorResponse);
-};
-
-module.exports = errorHandler;
+}

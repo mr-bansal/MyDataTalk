@@ -1,18 +1,18 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const path = require('path');
-require('dotenv').config();
+import 'dotenv/config';
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-// Import routes
-const queryRoutes = require('./routes/queryRoutes');
-const exportRoutes = require('./routes/exportRoutes');
+import queryRoutes from './routes/queryRoutes.js';
+import exportRoutes from './routes/exportRoutes.js';
+import errorHandler from './middleware/errorHandler.js';
+import dbService from './services/dbService.js';
 
-// Import middleware and services
-const errorHandler = require('./middleware/errorHandler');
-const dbService = require('./services/dbService'); // Add this import
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// Initialize express
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -20,16 +20,6 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client/build')));
-
-// Initialize database tables
-async function initDatabase() {
-    try {
-        await dbService.ensureHistoryTableExists();
-        console.log('Database tables initialized');
-    } catch (error) {
-        console.error('Failed to initialize database tables:', error);
-    }
-}
 
 // Routes
 app.use('/api/query', queryRoutes);
@@ -43,11 +33,9 @@ app.get(/.*/, (req, res) => {
 // Error handling middleware
 app.use(errorHandler);
 
-// Start server
-app.listen(PORT, async () => {
+
+app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
-    // Initialize database tables on startup
-    await initDatabase();
 });
 
-module.exports = app;
+export default app;

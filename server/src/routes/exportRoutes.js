@@ -1,14 +1,17 @@
-const express = require('express');
-const exportController = require('../controllers/exportController.js');
+import express from 'express';
+import {
+    exportToCsv,
+    exportToJson,
+    createShareableLink,
+    getSharedExport
+} from '../controllers/exportController.js';
+
 const router = express.Router();
 
-router.post('/csv', exportController.exportToCsv);
-
-router.post('/json', exportController.exportToJson);
-
-router.post('/share', exportController.createShareableLink);
-
-router.get('/shared/:shareId', exportController.getSharedExport);
+router.post('/csv', exportToCsv);
+router.post('/json', exportToJson);
+router.post('/share', createShareableLink);
+router.get('/shared/:shareId', getSharedExport);
 
 router.get('/formats', (req, res) => {
     res.json({
@@ -31,4 +34,4 @@ router.get('/formats', (req, res) => {
     });
 });
 
-module.exports = router;
+export default router;

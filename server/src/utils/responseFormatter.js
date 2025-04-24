@@ -1,7 +1,7 @@
-function formatSuccessResponse(data, message = null) {
+export function formatSuccessResponse(data, message = null) {
     const response = {
         success: true,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
     };
 
     if (message) {
@@ -15,15 +15,14 @@ function formatSuccessResponse(data, message = null) {
     return response;
 }
 
-
-function formatErrorResponse(message, statusCode = 500, details = null) {
+export function formatErrorResponse(message, statusCode = 500, details = null) {
     const response = {
         success: false,
         error: {
             message: message || 'An unexpected error occurred',
-            status: statusCode
+            status: statusCode,
         },
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
     };
 
     if (details) {
@@ -33,32 +32,27 @@ function formatErrorResponse(message, statusCode = 500, details = null) {
     return response;
 }
 
-
-function enhanceQueryResults(rows, metadata = {}) {
+export function enhanceQueryResults(rows, metadata = {}) {
     const result = {
         data: rows,
         count: rows.length,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
     };
 
     // Add column metadata
     if (rows.length > 0) {
         const sampleRow = rows[0];
         const columns = Object.keys(sampleRow).map(key => {
-            const value = sampleRow[key];
-            let dataType = typeof value;
-
+            let dataType = typeof sampleRow[key];
             if (dataType === 'object') {
-                dataType = value === null ? 'null' :
-                    Array.isArray(value) ? 'array' : 'object';
+                dataType = sampleRow[key] === null
+                    ? 'null'
+                    : Array.isArray(sampleRow[key])
+                        ? 'array'
+                        : 'object';
             }
-
-            return {
-                name: key,
-                type: dataType
-            };
+            return { name: key, type: dataType };
         });
-
         result.columns = columns;
     }
 
@@ -69,14 +63,12 @@ function enhanceQueryResults(rows, metadata = {}) {
 
         Object.keys(sampleRow).forEach(key => {
             if (typeof sampleRow[key] === 'number') {
-                const values = rows.map(row => row[key]).filter(val => val !== null);
-
+                const values = rows.map(r => r[key]).filter(v => v != null);
                 if (values.length > 0) {
-                    const sum = values.reduce((acc, val) => acc + val, 0);
+                    const sum = values.reduce((a, b) => a + b, 0);
                     const avg = sum / values.length;
                     const min = Math.min(...values);
                     const max = Math.max(...values);
-
                     numericSummary[key] = { min, max, avg, sum };
                 }
             }
@@ -94,9 +86,3 @@ function enhanceQueryResults(rows, metadata = {}) {
 
     return result;
 }
-
-module.exports = {
-    formatSuccessResponse,
-    formatErrorResponse,
-    enhanceQueryResults
-};
