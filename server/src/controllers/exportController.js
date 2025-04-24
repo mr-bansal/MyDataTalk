@@ -87,7 +87,7 @@ export async function createShareableLink(req, res, next) {
         };
         shareableExports.set(shareId, exportData);
 
-        const baseUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT || 5000}`;
+        const baseUrl = process.env.BASE_URL || `https://mydatatalk.onrender.com/:${process.env.PORT || 5000}`;
         const shareUrl = `${baseUrl}/api/export/shared/${shareId}`;
 
         res.json({ shareId, shareUrl, expiresAt: exportData.expiresAt });
