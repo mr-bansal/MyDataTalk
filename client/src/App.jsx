@@ -7,6 +7,7 @@ import NotFound from './pages/NotFound'; // Optional
 function App() {
   return (
     <Router>
+      <title>DataTalk - Democratizing Database Accessibility</title>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/shared/:shareId" element={<SharedQuery />} />

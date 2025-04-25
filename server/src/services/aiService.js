@@ -82,25 +82,7 @@ async function translateToSql(userQuery) {
     }
 }
 
-async function generateClarificationRequest(userQuery, attemptedSql) {
-    const clarificationPrompt = `
-I tried to translate this English query to SQL: "${userQuery}"
-
-My attempted SQL was: "${attemptedSql}"
-
-Please generate 2-3 clarifying questions I should ask the user to help me understand what they're looking for.
-Format each question on a new line with a number.
-`;
-    try {
-        return await generateContent(clarificationPrompt);
-    } catch (error) {
-        console.error('Failed to generate clarification request:', error);
-        return "Could you please clarify what you're looking for?";
-    }
-}
-
 export default {
     translateToSql,
-    generateClarificationRequest,
     buildDynamicPrompt
 };

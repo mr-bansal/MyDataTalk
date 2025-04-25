@@ -34,13 +34,10 @@ const ExportOptions = ({ queryResults }) => {
         setExportFormat(format); // Set active format for loading indicator
         setError('');
         try {
-
             const response = await api.post(`/export/${format}`, {
                 sqlQuery: queryResults.sql_query,
-
                 results: queryResults.results
             }, {
-
                 responseType: 'blob'
             });
 
@@ -73,15 +70,12 @@ const ExportOptions = ({ queryResults }) => {
         setError('');
         setShareableLink('');
         try {
-
             const response = await api.post('/export/share', {
                 sqlQuery: queryResults.sql_query,
-
                 format: 'json'
             });
 
             setLoading(false);
-
             setShareableLink(response.data.shareUrl);
         } catch (err) {
             console.error('Share error:', err.response?.data || err);
@@ -91,74 +85,77 @@ const ExportOptions = ({ queryResults }) => {
     };
 
     return (
-        <div className="group relative rounded-3xl p-[2px] bg-transparent overflow-hidden m-8">
+        <>
+            {loading ? (
+                <LoadingSpinner size="large" />
+            ) : (
+                <div className="group relative rounded-3xl p-[2px] bg-transparent overflow-hidden m-8">
+                    <div
+                        className="
+                            absolute inset-0
+                            bg-gradient-to-br from-black via-red-700 to-purple-800
+                            rounded-3xl
+                            transform origin-top-left scale-0
+                            group-hover:scale-100
+                            transition-transform duration-500
+                        "
+                    />
 
-            <div
-                className="
-            absolute inset-0
-            bg-gradient-to-br from-black via-red-700 to-purple-800
-            rounded-3xl
-            transform origin-top-left scale-0
-            group-hover:scale-100
-            transition-transform duration-500
-          "
-            />
+                    <div className="relative rounded-3xl bg-gray-900 p-6 transform transition duration-500">
+                        <h3 className="text-xl font-semibold mb-4 text-white">Export Options</h3>
 
+                        {error && <Alert type="error" message={error} className="mb-4" />}
 
-            <div className="relative rounded-3xl bg-gray-900 p-6 transform transition duration-500">
-                <h3 className="text-xl font-semibold mb-4 text-white">Export Options</h3>
+                        <h4 className="text-lg font-medium mb-2 text-gray-200">Download</h4>
+                        <div className="export-buttons flex flex-wrap gap-4 mb-6">
+                            {availableFormats.map((format) => (
+                                <Button
+                                    key={format.id}
+                                    onClick={() => handleExport(format.id)}
+                                    disabled={loading}
+                                    className={`px-4 py-2 rounded-3xl text-white ${loading && exportFormat === format.id
+                                            ? 'bg-gray-600 cursor-not-allowed'
+                                            : 'bg-transparent hover:bg-gray-700 transition-all duration-300 border border-gray-600'
+                                        }`}
+                                >
+                                    {loading && exportFormat === format.id ? (
+                                        <LoadingSpinner size="small" />
+                                    ) : (
+                                        `Export to ${format.name}`
+                                    )}
+                                </Button>
+                            ))}
+                        </div>
 
-                {error && <Alert type="error" message={error} className="mb-4" />}
-
-                <h4 className="text-lg font-medium mb-2 text-gray-200">Download</h4>
-                <div className="export-buttons flex flex-wrap gap-4 mb-6">
-                    {availableFormats.map((format) => (
+                        <h4 className="text-lg font-medium mb-2 text-gray-200">Share</h4>
                         <Button
-                            key={format.id}
-                            onClick={() => handleExport(format.id)}
+                            onClick={handleShare}
                             disabled={loading}
-                            className={`px-4 py-2 rounded-3xl text-white ${loading && exportFormat === format.id
-                                ? 'bg-gray-600 cursor-not-allowed'
-                                : 'bg-transparent hover:bg-gray-700 transition-all duration-300 border border-gray-600'
+                            className={`px-4 py-2 rounded-3xl text-white ${loading
+                                    ? 'bg-gray-600 cursor-not-allowed'
+                                    : 'bg-transparent hover:bg-gray-700 transition-all duration-300 border border-gray-600'
                                 }`}
                         >
-                            {loading && exportFormat === format.id ? (
-                                <LoadingSpinner size="small" />
-                            ) : (
-                                `Export to ${format.name}`
-                            )}
+                            {loading ? <LoadingSpinner size="small" /> : 'Generate Shareable Link'}
                         </Button>
-                    ))}
-                </div>
 
-                <h4 className="text-lg font-medium mb-2 text-gray-200">Share</h4>
-                <Button
-                    onClick={handleShare}
-                    disabled={loading}
-                    className={`px-4 py-2 rounded-3xl text-white ${loading
-                        ? 'bg-gray-600 cursor-not-allowed'
-                        : 'bg-transparent hover:bg-gray-700 transition-all duration-300 border border-gray-600'
-                        }`}
-                >
-                    {loading ? <LoadingSpinner size="small" /> : 'Generate Shareable Link'}
-                </Button>
-
-                {shareableLink && (
-                    <div className="share-link mt-4 p-4 bg-gray-800 rounded-lg border border-gray-700">
-                        <p className="text-sm font-medium mb-2 text-gray-200">Share this link:</p>
-                        <a
-                            href={shareableLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-400 hover:text-blue-300 hover:underline break-all"
-                        >
-                            {shareableLink}
-                        </a>
+                        {shareableLink && (
+                            <div className="share-link mt-4 p-4 bg-gray-800 rounded-lg border border-gray-700">
+                                <p className="text-sm font-medium mb-2 text-gray-200">Share this link:</p>
+                                <a
+                                    href={shareableLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-blue-400 hover:text-blue-300 hover:underline break-all"
+                                >
+                                    {shareableLink}
+                                </a>
+                            </div>
+                        )}
                     </div>
-                )}
-            </div>
-        </div>
-
+                </div>
+            )}
+        </>
     );
 };
 

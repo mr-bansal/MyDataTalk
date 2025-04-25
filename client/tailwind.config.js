@@ -16,10 +16,7 @@ module.exports = {
         },
       },
       animation: {
-        // Corrected: Added 'ease' timing function and 'infinite' loop
         'pan-gradient': 'slow-pan 5s ease infinite',
-        // If you want it slower like the previous suggestion:
-        // 'pan-gradient': 'slow-pan 25s ease infinite',
       },
       backgroundSize: {
         '400%': '400% 400%',

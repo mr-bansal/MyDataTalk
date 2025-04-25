@@ -12,20 +12,7 @@ export async function processQuery(req, res, next) {
         console.log('Processing natural language query:', query);
 
         // Translate natural language to SQL
-        const { sqlQuery, confidence } = await aiService.translateToSql(query);
-
-        // Handle low confidence or empty SQL
-        if (!sqlQuery || confidence < 70) {
-            const clarification = await aiService.generateClarificationRequest(query, sqlQuery);
-            return res.status(202).json({
-                status: 'needs_clarification',
-                original_query: query,
-                attempted_sql: sqlQuery || '',
-                confidence,
-                clarification_questions: clarification,
-                message: 'Low confidence in SQL translation. Please clarify your question.',
-            });
-        }
+        const { sqlQuery } = await aiService.translateToSql(query);
 
         // Validate SQL query
         const validation = validateSqlQuery(sqlQuery);
@@ -50,39 +37,6 @@ export async function processQuery(req, res, next) {
                 execution_time_ms: result.executionTime,
             },
         });
-    } catch (error) {
-        next(error);
-    }
-}
-
-export async function handleClarification(req, res, next) {
-    try {
-        const { original_query, clarification } = req.body;
-        if (!original_query || !clarification) {
-            return res.status(400).json({ error: 'Missing required parameters' });
-        }
-
-        // Generate new SQL with clarification
-        const enhancedQuery = `${original_query} ${clarification}`;
-        const { sqlQuery, confidence } = await aiService.translateToSql(enhancedQuery);
-
-        // If still low confidence, ask for more clarification
-        if (!sqlQuery || confidence < 70) {
-            const clarificationRequest = await aiService.generateClarificationRequest(
-                enhancedQuery,
-                sqlQuery
-            );
-            return res.status(202).json({
-                status: 'needs_clarification',
-                original_query,
-                attempted_sql: sqlQuery || '',
-                confidence,
-                clarification_questions: clarificationRequest,
-                message: 'Low confidence in SQL translation. Please clarify your question.',
-            });
-        }
-
-
     } catch (error) {
         next(error);
     }

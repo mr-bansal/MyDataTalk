@@ -1,7 +1,6 @@
 import express from 'express';
 import {
-    processQuery,
-    handleClarification
+    processQuery
 } from '../controllers/queryController.js';
 import dbService from '../services/dbService.js';
 import { getCountryTableSchema } from '../models/schema.js';
@@ -9,7 +8,6 @@ import { getCountryTableSchema } from '../models/schema.js';
 const router = express.Router();
 
 router.post('/', processQuery);
-router.post('/clarify', handleClarification);
 
 router.post('/execute', async (req, res, next) => {
     try {
