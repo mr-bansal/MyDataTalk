@@ -1,12 +1,10 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { QueryContext } from '../../contexts/QueryContext';
 
 const QueryHistory = () => {
     const { history, getFromHistory, setQueryResults } = useContext(QueryContext);
 
-    useEffect(() => {
-        console.log('queryHistory:', history);
-    }, [history]);
+
 
     if (!history || history.length === 0) {
         return (

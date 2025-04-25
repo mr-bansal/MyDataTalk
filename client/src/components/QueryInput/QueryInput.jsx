@@ -85,7 +85,7 @@ const QueryInput = ({ onSchemaInfo }) => {
                             id="naturalQuery"
                             value={naturalQuery}
                             onChange={handleInputChange}
-                            placeholder="e.g., What is the population of India?"
+                            placeholder="e.g., Give Names of top 10 countries with greatest GDP"
                             className="w-full p-1.5 rounded-lg bg-gray-800 text-white placeholder-gray-400 text-center focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
                         />
 
