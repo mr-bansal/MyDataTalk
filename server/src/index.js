@@ -2,16 +2,9 @@ import 'dotenv/config';
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
 import queryRoutes from './routes/queryRoutes.js';
 import exportRoutes from './routes/exportRoutes.js';
 import errorHandler from './middleware/errorHandler.js';
-import dbService from './services/dbService.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5000;

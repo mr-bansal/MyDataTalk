@@ -1,17 +1,8 @@
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
-import fs from 'fs';
 import dbService from '../services/dbService.js';
 import { convertToCsv } from '../utils/exportHelpers.js';
 import { v4 as uuidv4 } from 'uuid';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
-const EXPORTS_DIR = join(__dirname, '../exports');
-if (!fs.existsSync(EXPORTS_DIR)) {
-    fs.mkdirSync(EXPORTS_DIR, { recursive: true });
-}
 
 const shareableExports = new Map();
 
