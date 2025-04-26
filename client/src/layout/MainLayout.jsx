@@ -9,7 +9,7 @@ const MainLayout = ({ children }) => {
             </header>
             <main className="flex-grow p-4">{children}</main>
             <footer className="bg-black bg-opacity-60 text-center p-2 font-bold text-white">
-                <p>Made with ❤️ by <a className="text-red-400" href="https://www.linkedin.com/in/keshav-bansal-iit/">Keshav Bansal</a></p>
+                <p>Made with ❤️ by <a className="text-red-500" href="https://www.linkedin.com/in/keshav-bansal-iit/">Keshav Bansal</a></p>
             </footer>
         </div>
     );
