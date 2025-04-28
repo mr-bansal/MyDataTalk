@@ -114,8 +114,8 @@ const ExportOptions = ({ queryResults }) => {
                                     onClick={() => handleExport(format.id)}
                                     disabled={loading}
                                     className={`px-4 py-2 rounded-3xl text-white ${loading && exportFormat === format.id
-                                            ? 'bg-gray-600 cursor-not-allowed'
-                                            : 'bg-transparent hover:bg-gray-700 transition-all duration-300 border border-gray-600'
+                                        ? 'bg-gray-600 cursor-not-allowed'
+                                        : 'bg-transparent hover:bg-gray-700 transition-all duration-300 border border-gray-600'
                                         }`}
                                 >
                                     {loading && exportFormat === format.id ? (
@@ -132,8 +132,8 @@ const ExportOptions = ({ queryResults }) => {
                             onClick={handleShare}
                             disabled={loading}
                             className={`px-4 py-2 rounded-3xl text-white ${loading
-                                    ? 'bg-gray-600 cursor-not-allowed'
-                                    : 'bg-transparent hover:bg-gray-700 transition-all duration-300 border border-gray-600'
+                                ? 'bg-gray-600 cursor-not-allowed'
+                                : 'bg-transparent hover:bg-gray-700 transition-all duration-300 border border-gray-600'
                                 }`}
                         >
                             {loading ? <LoadingSpinner size="small" /> : 'Generate Shareable Link'}
