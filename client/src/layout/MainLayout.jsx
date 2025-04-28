@@ -2,7 +2,7 @@ import React from 'react';
 
 const MainLayout = ({ children }) => {
     return (
-        <div className="flex flex-col min-h-screen bg-dark-glow bg-cover bg-center bg-no-repeat animate-pan-gradient">
+        <div className="flex flex-col min-h-screen bg-dark-glow bg-fixed bg-center bg-no-repeat animate-pan-gradient">
             <header className="bg-black bg-opacity-60 text-white p-4">
                 <h1 className="text-2xl font-extrabold text-center">DataTalk - Democratizing Data Accessibility</h1>
                 {/* Navigation or other header elements */}

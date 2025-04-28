@@ -23,7 +23,7 @@ const Home = () => {
                     href="/motto"
                     className="flex text-xl text-red-500 hover:text-red-600 hover:scale-105 font-extrabold justify-center transition-all duration-300 ease-in-out"
                 >
-                    Read the motto here
+                    Read my motto here
                 </a>
                 <QueryInput onSchemaInfo={handleSchemaInfo} />
 
